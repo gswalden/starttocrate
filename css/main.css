@@ -1,0 +1,107 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body {
+	background-color: #f2f2e8;
+}
+
+h1 {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 8em;
+	color: #f2f2e8;
+}
+
+#top-box {
+	background-color: #f2f2e8;
+	height: 5px;
+	width: 100%
+}
+
+.row-header {
+	background-color: brown;
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+#header {
+	text-align: center;
+	color: rgba(0,0,0,.8);
+}
+
+#header h3 {
+	margin-top: 70px;
+	margin-bottom: 30px;
+}
+
+#header i {
+	margin-left: 30px;
+	vertical-align: middle;
+}
+
+.navbar {
+	margin-bottom: 30px;
+	z-index: 10;
+}
+
+.navbar .container {
+	width: 940px;
+}
+
+.navbar-inner {
+	background-color: #fff;
+	-webkit-border-radius: 0px;
+	   -moz-border-radius: 0px;
+			border-radius: 0px;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+	   -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+			box-shadow: 0 1px 4px rgba(0,0,0,0.5);		
+	background-image: none;
+	border: 0;
+	color: rgba(0,0,0,.8);
+}
+
+.navbar .nav {
+	margin-top: 10px;
+
+}
+
+.navbar .nav>li>a {
+	font-size: 16px;
+	font-weight: bold;
+	color: rgba(0,0,0,.8);
+}
+
+#header i {
+	margin-left: 30px;
+	vertical-align: middle;
+}
+
+#nav-social {
+	float: left;
+}
+
+#nav-social i {
+	margin-right: 15px;
+}
+
+#calendar {
+	color: rgba(0,0,0,.8);
+	text-align: left;
+}
+
+#calendar h2 {
+	text-align: center;
+}
+
+.icons {
+	margin-left: -30px;
+}
+
+.center-me {
+	text-align: center;
+}
+
+
