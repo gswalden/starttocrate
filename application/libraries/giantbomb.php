@@ -35,39 +35,40 @@ class GiantBomb
 		$this->CI =& get_instance();
 		$this->api_key = $this->CI->config->item('giant_bomb_key');
 		$this->CI->rest->initialize(array('server' => $this->url));
-
 	}
 
 	public function get_game($id)
 	{
 		$type = 'game';
 		$this->id = $id;
-		$this->_call($type);	
+		return $this->_call($type);	
 	}
 
 	public function search($query)
 	{
 		$this->query = $query;
 		$type = 'search';
-		$this->_call($type);
+		return $this->_call($type);
 	}
 
-	protected function _call($type)
+	protected function _call($api_resource)
 	{
-		$api_resource = "$type";
 		$params = array('api_key' => $this->api_key, 
 						'format' => $this->format, 
 						'field_list' => implode(',', $this->field_list));
-		if ($type == 'search')
+		if ($api_resource == 'search')
+		{
 			$params['query'] = $this->query;
-		elseif ($type == 'game')
-			 $api_resource .= '/' . $this->id . '/';
+			$params['resources'] = 'game'; 			
+		}
+		elseif ($api_resource == 'game')
+			 $api_resource .= '/' . $this->id;
 
 		$response = $this->CI->rest->get($api_resource, $params, $this->format);
-		log_message('info', "GiantBomb API request made of type $type.");
+		log_message('info', "GiantBomb API request made of type $api_resource.");
 		if ($response->status_code != 1)
 		{
-			echo 'We had a bad conversation with Giant Bomb. Error code: ' . $response->status_code;
+			echo 'We had a bad conversation with Giant Bomb (error code: ' . $response->status_code . ').';
 			mail('givemesnacks@gmail.com', "Start to Crate: Giant Bomb Error: $response->status_code", $response->error . ' | Object: ' . $resource_id);
 			return FALSE; 
 		}

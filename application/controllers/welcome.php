@@ -20,8 +20,8 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$this->load->library('GiantBomb');
-		$game_info = $this->giantbomb->get_game('3030-7418');
-		$game_info->image = $game_info->image->small_url;
+		$game_info = $this->giantbomb->search('jedi outcast');
+		// $game_info->image = $game_info->image->small_url;
 		var_dump($game_info);
 		$this->game_model->add_game($game_info);
 
