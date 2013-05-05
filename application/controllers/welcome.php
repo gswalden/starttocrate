@@ -19,13 +19,10 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->library('GiantBomb');
-		$game_info = $this->giantbomb->search('jedi outcast');
-		// $game_info->image = $game_info->image->small_url;
-		var_dump($game_info);
-		$this->game_model->add_game($game_info);
+		// $this->load->library('GiantBomb');
+		// $game_info = $this->giantbomb->search('waldeneenenen');
 
-		$this->load->view('welcome');
+		$this->load->view('home');
 	}
 }
 

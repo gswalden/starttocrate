@@ -13,7 +13,7 @@
  * @link			http://getsparks.org/packages/restclient/show
  */
 
-class REST
+class REST_Client
 {
     protected $_ci;
 

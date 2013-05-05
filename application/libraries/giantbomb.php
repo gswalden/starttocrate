@@ -34,7 +34,7 @@ class GiantBomb
 	{
 		$this->CI =& get_instance();
 		$this->api_key = $this->CI->config->item('giant_bomb_key');
-		$this->CI->rest->initialize(array('server' => $this->url));
+		$this->CI->rest_client->initialize(array('server' => $this->url));
 	}
 
 	public function get_game($id)
@@ -64,7 +64,7 @@ class GiantBomb
 		elseif ($api_resource == 'game')
 			 $api_resource .= '/' . $this->id;
 
-		$response = $this->CI->rest->get($api_resource, $params, $this->format);
+		$response = $this->CI->rest_client->get($api_resource, $params, $this->format);
 		log_message('info', "GiantBomb API request made of type $api_resource.");
 		if ($response->status_code != 1)
 		{
@@ -72,6 +72,13 @@ class GiantBomb
 			mail('givemesnacks@gmail.com', "Start to Crate: Giant Bomb Error: $response->status_code", $response->error . ' | Object: ' . $resource_id);
 			return FALSE; 
 		}
+		$results = $response->results;
+		if (empty($results))
+			return FALSE;
+		
+		foreach ($results as &$result)
+			$result->image = $result->image->small_url;
+
 		return $response->results;
 	}
 }
