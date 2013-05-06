@@ -100,8 +100,23 @@ h1 {
 	margin-left: -30px;
 }
 
-.center-me {
-	text-align: center;
+.thumb {
+	height: 125px;
+	/*width: auto;*/
 }
 
+.image-cell {
+	width: 98px;
+}
 
+.date-cell {
+	width: 100px;
+}
+
+.game-name {
+	font-weight: bold;
+}
+
+.game-deck {
+	font-size: 12px;
+}

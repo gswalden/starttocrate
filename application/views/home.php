@@ -61,23 +61,63 @@
 			<div class="row">
 				<div class="span6">
 					<div class="input-append">
-						<input class="span4" id="appendedInputButton" type="text">
-						<button class="btn btn-inverse" type="button">Go!</button>
+						<?php echo form_open('search'); ?>
+						<input class="span4" id="query" name="query" type="text">
+						<button class="btn btn-inverse" type="submit"><i class="icon-search"></i></button>
+						<?php echo form_close(); ?>
 					</div>
 				</div>
 				<div class="span6">
 					<div class="pull-right">
-						<a href="#" class="btn btn-inverse btn-large"><i class="icon-plus"></i> Add Score</a>
+						<a href="#" class="btn btn-inverse"><i class="icon-plus"></i> Add Score</a>
 					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12">
+					<?php if ($games !== FALSE): ?>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Image</th>
+									<th>Game</th>
+									<th>Release Date</th>
+									<th>Score</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php 
+								$i = 1;
+								foreach ($games as $game):
+									echo '<tr>';
+									echo '<td>' . $i . '</td>';
+									echo '<td class="image-cell"><img class="thumb" src="' . $game->image . '" alt="' . $game->name . '"></td>';	
+									echo '<td><p class="game-name">' . $game->name . '</p>';
+									echo '<p class="game-deck">' . $game->deck . '<br /><a href="' . $game->site_detail_url . '">Full Wiki</a></p></td>';
+									$date = new DateTime($game->original_release_date);
+									echo '<td class="date-cell">' . $date->format('M Y') . '</td>';
+									echo '<td>' . $game->score . '</td>';
+									echo '</tr>';
+									$i++;
+								endforeach;
+								unset($game); ?>
+							</tbody>
+						</table>
+					<?php else:
+						echo '<h4>No games found!</h4>';
+					endif; ?>	
 				</div>
 			</div>
 		</div>
 		
+		
+
 		<div class="row">
 			<div class="container" id="calendar">
 				<div class="span12">
 					<h2>coming 2nd week of may</h2>
-					<div class="center-me">
+					<div class="text-center">
 						origin: <a href="http://www.oldmanmurray.com/features/39.html">Old Man Murray</a>
 					</div>
 				</div>

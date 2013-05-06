@@ -75,9 +75,15 @@ class GiantBomb
 		$results = $response->results;
 		if (empty($results))
 			return FALSE;
-		
+
 		foreach ($results as &$result)
-			$result->image = $result->image->small_url;
+		{
+			if (isset($result->image)
+				$result->image = $result->image->small_url;
+			else
+				$result->image = 'placeholder';	
+
+		}
 
 		return $response->results;
 	}
