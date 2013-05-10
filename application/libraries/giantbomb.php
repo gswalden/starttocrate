@@ -69,22 +69,30 @@ class GiantBomb
 		if ($response->status_code != 1)
 		{
 			echo 'We had a bad conversation with Giant Bomb (error code: ' . $response->status_code . ').';
-			mail('givemesnacks@gmail.com', "Start to Crate: Giant Bomb Error: $response->status_code", $response->error . ' | Object: ' . $resource_id);
+			mail('givemesnacks@gmail.com', "Start to Crate: Giant Bomb Error: $response->status_code", $response->error . ' | Object: ' . $this->id);
 			return FALSE; 
 		}
 		$results = $response->results;
 		if (empty($results))
 			return FALSE;
-
-		foreach ($results as &$result)
+		if (is_array($results))
 		{
-			if (isset($result->image)
-				$result->image = $result->image->small_url;
-			else
-				$result->image = 'placeholder';	
-
+			foreach ($results as &$result)
+			{
+				if (isset($result->image))
+				 	$result->image = $result->image->small_url;
+				else
+					$result->image = FALSE;	
+			}
 		}
-
-		return $response->results;
+		else
+		{
+			if (isset($results->image))
+			 	$results->image = $results->image->small_url;
+			else
+				$results->image = FALSE;
+		}
+		// var_dump($results);
+		return $results;
 	}
 }

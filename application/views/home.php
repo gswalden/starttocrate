@@ -1,3 +1,43 @@
+<?php 
+function echo_game($game, $i = 1)
+{
+	$was_released = isset($game->original_release_date);
+	echo '<tr>';
+	echo '<td>' . $i . '</td>';
+	echo '<td class="image-cell">';
+	if ($game->image === FALSE)
+		echo '<i class="icon-certificate icon-2x"></i>';
+	else
+		echo '<img class="thumb" src="' . $game->image . '" alt="' . $game->name . '">';
+	echo '</td>';	
+	echo '<td><div class="game-info">';
+	if ($was_released)
+	{
+		$date = new DateTime($game->original_release_date);
+		echo '<div class="pull-forward pull-right score"><strong>' . $game->score . '</strong></div>';
+	}
+	echo '<p><strong>' . $game->name . '</strong>';
+	if ($was_released)
+	{
+		echo ' - <em>' . $date->format('M Y') .'</em></p>';
+	}
+	echo '<p class="game-deck">' . $game->deck . '<br /><a href="' . $game->site_detail_url . '">Full Wiki</a></p>';
+	if ($was_released)
+	{
+		echo '<div class="input-append">';
+		echo form_open('add');
+		echo '<input class="span1" name="score" type="text">';
+		echo '<input type="hidden" name="id" value="' . $game->id . '">';
+		echo '<button class="btn btn-inverse" type="submit"><i class="icon-plus"></i> Add Score</button>';
+		echo form_close();
+		echo '</div></td>';
+	}
+	else
+		echo '<strong>Game never released!</strong>';
+	
+	echo '</tr>';
+}
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -34,7 +74,7 @@
 			<div class="container">
 				<div id="header">
 					<!-- <img src="img/training-center.png" alt="Training Center Logo"> -->
-					<h1>Start To Crate</h1>
+					<h1><a href="/starttocrate">Start To Crate</a></h1>
 					<h3>Games. Crates. Explosions.</h3>
 					<div class="icons">
 						<i class="icon-play icon-4x"></i><i class="icon-exchange icon-2x"></i><i class="icon-truck icon-4x"></i><i class="icon-exchange icon-2x"></i><i class="icon-fire icon-4x"></i>
@@ -48,7 +88,7 @@
 				<div class="container">
 					
 					<span id="nav-social">
-						<i class="icon-facebook-sign icon-4x"></i><i class="icon-twitter-sign icon-4x"></i>
+						<a href="/starttocrate"><i class="icon-home icon-4x"></i></a><i class="icon-twitter-sign icon-4x"></i>
 					</span>
 					<ul class="nav pull-right">
 						from spawn till crate
@@ -62,7 +102,8 @@
 				<div class="span6">
 					<div class="input-append">
 						<?php echo form_open('search'); ?>
-						<input class="span4" id="query" name="query" type="text">
+						<input class="span4" id="query" name="search" type="text" placeholder="Search for games" <?php if (isset($search)) 
+						echo 'value="' . $search . '"'; ?> >
 						<button class="btn btn-inverse" type="submit"><i class="icon-search"></i></button>
 						<?php echo form_close(); ?>
 					</div>
@@ -80,28 +121,25 @@
 							<thead>
 								<tr>
 									<th>#</th>
-									<th>Image</th>
+									<th>Box Art</th>
 									<th>Game</th>
-									<th>Release Date</th>
-									<th>Score</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php 
-								$i = 1;
-								foreach ($games as $game):
-									echo '<tr>';
-									echo '<td>' . $i . '</td>';
-									echo '<td class="image-cell"><img class="thumb" src="' . $game->image . '" alt="' . $game->name . '"></td>';	
-									echo '<td><p class="game-name">' . $game->name . '</p>';
-									echo '<p class="game-deck">' . $game->deck . '<br /><a href="' . $game->site_detail_url . '">Full Wiki</a></p></td>';
-									$date = new DateTime($game->original_release_date);
-									echo '<td class="date-cell">' . $date->format('M Y') . '</td>';
-									echo '<td>' . $game->score . '</td>';
-									echo '</tr>';
-									$i++;
-								endforeach;
-								unset($game); ?>
+								<?php
+								if (is_array($games))
+								{
+									$i = 1;
+									foreach ($games as $game)
+									{
+										echo_game($game, $i);
+										$i++;
+									}
+									unset($game);	
+								}
+								else
+									echo_game($games);
+								?>
 							</tbody>
 						</table>
 					<?php else:

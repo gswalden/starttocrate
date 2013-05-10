@@ -7,6 +7,11 @@ class Game_model extends CI_Model {
 		$this->db->insert('games', $data);
 	}
 
+	public function add_score($data)
+	{
+		$this->db->insert('scores', $data);
+	}
+
 	public function get_game($id)
 	{
 
@@ -19,6 +24,6 @@ class Game_model extends CI_Model {
 
 	public function search_games($query)
 	{
-		
+
 	}	
 }

@@ -4,10 +4,9 @@ class Search extends CI_Controller {
 
 	public function index()
 	{
-		$query = $this->input->post('query');
+		$search = trim($this->input->post('search'));
 		$this->load->library('GiantBomb');
-		$response = $this->giantbomb->search($query);
-		var_dump($response);
+		$response = $this->giantbomb->search($search);
 		if ($response !== FALSE)
 		{
 			foreach ($response as &$res)
@@ -29,6 +28,7 @@ class Search extends CI_Controller {
 		}
 
 		$data['games'] = $response;
+		$data['search'] = $search;
 		$this->load->view('home', $data);
 	}
 }

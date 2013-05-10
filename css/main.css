@@ -14,6 +14,20 @@ h1 {
 	color: #f2f2e8;
 }
 
+h1 a {
+	color: inherit;
+}
+
+h1 a:hover {
+	color: rgba(33,8,8,1);
+	text-decoration: none;
+	-o-transition:.5s;
+  	-ms-transition:.5s;
+	-moz-transition:.5s;
+	-webkit-transition:.5s;
+	transition:.5s;
+}
+
 #top-box {
 	background-color: rgba(33,8,8,1);
 	height: 5px;
@@ -63,6 +77,15 @@ h1 {
 	color: rgba(0,0,0,.8);
 }
 
+.navbar-inner a {
+	color: rgba(0,0,0,.8);
+}
+
+.navbar-inner a:hover {
+	color: rgba(0,0,0,1);
+	text-decoration: none;
+}
+
 .navbar .nav {
 	margin-top: 10px;
 
@@ -85,6 +108,12 @@ h1 {
 
 #nav-social i {
 	margin-right: 15px;
+}
+
+
+
+table .input-append {
+	margin-bottom: 0px;
 }
 
 #calendar {
@@ -113,10 +142,35 @@ h1 {
 	width: 100px;
 }
 
-.game-name {
-	font-weight: bold;
+.game-info {
+	position: relative;
+}
+
+.game-info:before {
+	position: absolute;
+	font-family: FontAwesome;
+	top:5px;
+    right:-25px;
+    content: "\f0a3";
+    font-size: 100px;
+    color: red;
+    z-index: 1;
 }
 
 .game-deck {
 	font-size: 12px;
+	padding-right: 60px;
+}
+
+.pull-forward {
+	position: relative;
+	z-index: 2;
+}
+
+.score {
+	font-weight: bold;
+	font-size: 36px;
+	color: #fff;
+	padding-right: -10px;
+	padding-top: 5px;
 }
